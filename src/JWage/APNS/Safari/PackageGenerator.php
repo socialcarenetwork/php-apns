@@ -25,17 +25,24 @@ class PackageGenerator
     protected $host;
 
     /**
+     * @var string
+     */
+    protected $intermediateCertificate;
+
+    /**
      * Construct.
      *
      * @param \JWage\APNS\Certificate $certificate
      * @param string $basePushPackagePath
      * @param string $host
+     * @param string $intermediateCertificate path to intermediate certificate
      */
-    public function __construct(Certificate $certificate, $basePushPackagePath, $host)
+    public function __construct(Certificate $certificate, $basePushPackagePath, $host, $intermediateCertificate=null)
     {
         $this->certificate = $certificate;
         $this->basePushPackagePath = $basePushPackagePath;
         $this->host = $host;
+        $this->intermediateCertificate = $intermediateCertificate;
     }
 
     /**
@@ -120,7 +127,7 @@ class PackageGenerator
     private function createPackageSignature(Package $package)
     {
         return $this->createPackageSigner()->createPackageSignature(
-            $this->certificate, $package
+            $this->certificate, $package, $this->intermediateCertificate
         );
     }
 
