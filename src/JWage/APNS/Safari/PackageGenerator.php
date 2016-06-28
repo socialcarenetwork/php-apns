@@ -34,6 +34,11 @@ class PackageGenerator
     protected $websitePushId;
 
     /**
+     * @var string
+     */
+    protected $intermediateCertificate;
+
+    /**
      * Construct.
      *
      * @param \JWage\APNS\Certificate $certificate
@@ -47,13 +52,15 @@ class PackageGenerator
         $basePushPackagePath,
         $host,
         $websiteName = '',
-        $websitePushId = ''
+        $websitePushId = '',
+        $intermediateCertificate = null
     ) {
         $this->certificate = $certificate;
         $this->basePushPackagePath = $basePushPackagePath;
         $this->host = $host;
         $this->websiteName = $websiteName;
         $this->websitePushId = $websitePushId;
+        $this->intermediateCertificate = $intermediateCertificate;
     }
 
     /**
@@ -140,7 +147,7 @@ class PackageGenerator
     private function createPackageSignature(Package $package)
     {
         return $this->createPackageSigner()->createPackageSignature(
-            $this->certificate, $package
+            $this->certificate, $package, $this->intermediateCertificate
         );
     }
 
