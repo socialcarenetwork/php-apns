@@ -6,7 +6,7 @@ use ErrorException;
 
 class SocketClient
 {
-    const PAYLOAD_MAX_BYTES = 256;
+    const PAYLOAD_MAX_BYTES = 2048;
 
     /**
      * @var \JWage\APNS\Certificate
